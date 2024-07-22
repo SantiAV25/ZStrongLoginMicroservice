@@ -22,6 +22,10 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+ * This is The Entity Class That Represents The Roles Table in The Database
+ * @author Santiago Agredo Vallejo
+ */
 
 @NoArgsConstructor
 @AllArgsConstructor

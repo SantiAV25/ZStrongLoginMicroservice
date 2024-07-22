@@ -31,6 +31,12 @@ import com.ZstrongLoginService.ZstrongLoginMicroServices.util.jwtUtils.JwtUtils;
 
 import org.springframework.security.core.userdetails.User;
 
+/*
+ * This is The UserDetailsService Implementation Class That Will Handle The User Details
+ * @Author Santiago Agredo Vallejo
+ * @Version 1.0
+ */
+
 @Service
 public class UserDatailsServiceImpl implements UserDetailsService{
 
@@ -46,6 +52,12 @@ public class UserDatailsServiceImpl implements UserDetailsService{
     @Autowired
     private JwtUtils jwtUtils;
 
+    /**
+     * This Method Will Load The User By Username and return a new user according to Spring Security
+     * @param username
+     * @return UserDetails
+     * @throws UsernameNotFoundException
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
@@ -72,6 +84,14 @@ public class UserDatailsServiceImpl implements UserDetailsService{
          authorityList);
     }
     
+
+    /**
+     * This Method Will Login The User and return the AuthResponse
+     * The AuthResponse will contain the username, message, accesToken that is going to be used in the headers 
+     * for acces to other microservices
+     * @param authLoginRequest
+     * @return
+     */
     public AuthResponse loginUser(AuthLoginRequest authLoginRequest){
 
         System.out.println("Entro al login User Request");
@@ -91,6 +111,12 @@ public class UserDatailsServiceImpl implements UserDetailsService{
 
     }
 
+    /**
+     * This Method Will Authenticate and return the authentication according to Spring Security
+     * @param username
+     * @param password
+     * @return
+     */
     public Authentication authentication(String username, String password){
         UserDetails userDetails = this.loadUserByUsername(username);
 
@@ -106,12 +132,18 @@ public class UserDatailsServiceImpl implements UserDetailsService{
 
     }
 
+    /**
+     * This Method Will Create a new User
+     * @param authCreateUser
+     * @return
+     */
     public UserEntity crateUser(AuthCreateUser authCreateUser){
 
         String username = authCreateUser.username();
         String password = authCreateUser.password();
         List<String> roles = authCreateUser.roleRequest().roles();
         Set<RoleEntity> roleList = new HashSet<>();
+        //For the moment the permissions are not going to be added, if is needed it can be added 
 
         roles.forEach(role -> {
             RoleEntity roleEntity = roleRepository.findByRoleEnum(RoleEnum.valueOf(role)).orElseThrow(() -> new RuntimeException("Role not found"));

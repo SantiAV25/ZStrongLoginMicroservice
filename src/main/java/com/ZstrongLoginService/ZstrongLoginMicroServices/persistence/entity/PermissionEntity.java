@@ -15,6 +15,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * This is The Entity Class That Represents The Permissions Table in The Database
+ * @author Santiago Agredo Vallejo 
+ */
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

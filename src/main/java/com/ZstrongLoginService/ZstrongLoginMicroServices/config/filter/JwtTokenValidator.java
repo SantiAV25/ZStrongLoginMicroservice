@@ -24,14 +24,30 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * This is the JwtTokenValidator Class that will validate the JWT Token 
+ * @Author Santiago Agredo Vallejo
+ * @Version 1.0
+ */
+
 public class JwtTokenValidator extends OncePerRequestFilter{
 
+    //Class Attributes
     private JwtUtils jwtUtils;
 
     public JwtTokenValidator(JwtUtils jwtUtils) {
         this.jwtUtils = jwtUtils;
     }
 
+    /**
+     * This Method will validate the JWT Token and add to the security context the user, this class is a filter
+     * that is added to the security filter chain
+     * @param request
+     * @param response
+     * @param filterChain
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {

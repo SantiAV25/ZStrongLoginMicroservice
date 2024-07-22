@@ -22,6 +22,12 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+/*
+ * This is The Entity Class That Represents The User Table in The Database 
+ * Also this Class Representes how the user should be according to Spring Security
+ * @author Santiago Agredo Vallejo
+ */
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

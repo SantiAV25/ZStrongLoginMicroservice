@@ -31,6 +31,12 @@ import com.ZstrongLoginService.ZstrongLoginMicroServices.util.jwtUtils.JwtUtils;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 
+/*
+ * This is The Security Configuration Class That Will Handle The Security Configuration of The Application
+ * @author Santiago Agredo Vallejo
+ * @version 1.0
+ */
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -40,6 +46,12 @@ public class SecurityConfig  {
     @Autowired
     private JwtUtils jwtUtils;
 
+    /**
+     * This Method Will Create The Security Filter Chain to handle de security In the Application
+     * @param httpSecurity 
+     * @return SecurityFilterChain
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -47,7 +59,7 @@ public class SecurityConfig  {
         .httpBasic(Customizer.withDefaults())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(http -> {
-            http.requestMatchers("/auth/**").permitAll();
+            http.requestMatchers("/auth/**","/swagger-ui/**","/v3/api-docs/**").permitAll();
             http.requestMatchers(HttpMethod.GET,"/method/**").authenticated();
             http.anyRequest().denyAll();
         })
@@ -55,6 +67,11 @@ public class SecurityConfig  {
         .build();
     }
 
+    /*
+     * This Method Will Create The Authentication Manager Bean
+     * @param authenticationConfiguration
+     * @return AuthenticationManager
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
 
@@ -62,6 +79,11 @@ public class SecurityConfig  {
     
     }
 
+    /*
+     * This Method Will Create The Authentication Provider that is used when the user login in the application
+     * @param userDetailsService 
+     * @return AuthenticationProvider
+     */
     @Bean
     public AuthenticationProvider authenticationProvider(UserDatailsServiceImpl userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -70,6 +92,11 @@ public class SecurityConfig  {
         return provider;
     }
 
+
+    /*
+     * This Method Will Create The Password Encoder Bean
+     * @return PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
