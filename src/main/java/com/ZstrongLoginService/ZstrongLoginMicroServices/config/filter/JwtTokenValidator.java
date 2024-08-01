@@ -57,7 +57,8 @@ public class JwtTokenValidator extends OncePerRequestFilter{
         System.out.println("Always is entering here");
 
 
-        if(jwtToken != null){
+        if(jwtToken != null && jwtToken.startsWith("Bearer ")){
+            System.out.println("Entering here");
             jwtToken = jwtToken.substring(7);
             DecodedJWT decodedJWT = jwtUtils.validateToken(jwtToken);
             String username = jwtUtils.exctractUserName(decodedJWT);

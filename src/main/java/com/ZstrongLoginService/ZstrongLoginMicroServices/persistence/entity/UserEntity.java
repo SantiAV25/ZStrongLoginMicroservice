@@ -44,6 +44,8 @@ public class UserEntity {
     @Column(unique = true)
     private String userName;
 
+    private String email;
+
     private String password;
 
     @Column(name = "is_enabled")

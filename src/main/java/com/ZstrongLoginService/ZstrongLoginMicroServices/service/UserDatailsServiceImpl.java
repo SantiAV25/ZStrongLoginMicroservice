@@ -141,6 +141,7 @@ public class UserDatailsServiceImpl implements UserDetailsService{
 
         String username = authCreateUser.username();
         String password = authCreateUser.password();
+        String email = authCreateUser.email();
         List<String> roles = authCreateUser.roleRequest().roles();
         Set<RoleEntity> roleList = new HashSet<>();
         //For the moment the permissions are not going to be added, if is needed it can be added 
@@ -152,6 +153,7 @@ public class UserDatailsServiceImpl implements UserDetailsService{
 
         UserEntity userEntity = UserEntity.builder()
         .userName(username)
+        .email(email)
         .password(passwordEncoder.encode(password))
         .isEnabled(true)
         .accountNonExpired(true)
